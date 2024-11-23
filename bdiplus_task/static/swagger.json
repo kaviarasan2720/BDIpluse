@@ -1,0 +1,138 @@
+{
+    "swagger": "2.0",
+    "info": {
+    "title": "BDIplus Assessment API",
+  "description": "This is a sample server Petstore server.",
+  "termsOfService": "http://swagger.io/terms/",
+  "contact": {
+    "name": "API Support",
+    "url": "http://www.swagger.io/support",
+    "email": "support@swagger.io"
+  },
+  "version": "1.0.1"},
+  "tags": [
+    {
+      "name": "CRUD",
+      "description": "Operations about CRUD"
+    }
+  ],
+    "paths": {
+      "/api/register": {
+        "post": {
+          "tags": ["CRUD"],
+          "summary": "Register a new user",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "email": {"type": "string"},
+                  "password": {"type": "string"}
+                },
+                "required": ["name", "email", "password"]
+              }
+            }
+          ],
+          "responses": {
+            "201": {"description": "User registered successfully"},
+            "400": {"description": "Invalid input or email already registered"}
+          }
+        }
+      },
+      "/api/login": {
+        "post": {
+          "tags": ["CRUD"],
+          "summary": "Login a user",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {"type": "string"},
+                  "password": {"type": "string"}
+                },
+                "required": ["email", "password"]
+              }
+            }
+          ],
+          "responses": {
+            "200": {"description": "JWT access token generated"},
+            "401": {"description": "Invalid email or password"}
+          }
+        }
+      },
+      "/api/users": {
+        "get": {
+          "tags": ["CRUD"],
+          "summary": "Retrieve all users",
+          "security": [{"BearerAuth": []}],
+          "responses": {
+            "200": {"description": "List of all users"}
+          }
+        }
+      },
+      "/api/user/{user_id}": {
+        "put": {
+          "tags": ["CRUD"],
+          "summary": "Update a user by ID",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {"type": "string"},
+                  "email": {"type": "string"}
+                }
+              }
+            }
+          ],
+          "security": [{"BearerAuth": []}],
+          "responses": {
+            "200": {"description": "User updated successfully"},
+            "404": {"description": "User not found"}
+          }
+        },
+        "delete": {
+          "tags": ["CRUD"],
+          "summary": "Delete a user by ID",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": [{"BearerAuth": []}],
+          "responses": {
+            "200": {"description": "User deleted successfully"},
+            "404": {"description": "User not found"}
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "BearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+  
