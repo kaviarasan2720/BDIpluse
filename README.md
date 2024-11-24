@@ -41,7 +41,7 @@ The project allows users to register, log in, and access secured resources based
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone (https://github.com/kaviarasan2720/BDIpluse.git)
 ```
 ### 2. Setup Backend (Flask API)
 Install Dependencies
